@@ -142,3 +142,5 @@ This works but generates an error because we are not passing quotes to the view.
     .then( () => { res.redirect('/') })
     .catch( err => console.log(err) );
 ```
+
+## v.6 - Add an open API to the application

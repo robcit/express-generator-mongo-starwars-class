@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 
 // Routers
 const indexRouter = require('./routes/index');
+const apiRouter = require('routes/api/v1/index');
 
 // Database initialization with Mongo native driver
 // async function startDB() {
@@ -39,8 +40,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 app.use('/', indexRouter);
+app.use('/api/v1', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
