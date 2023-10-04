@@ -32,3 +32,28 @@ Based on the following article:
 ### Test the Form
 * `npm run dev`
 * Submit the form; should see the request body appear in the console.
+
+
+## v.2 - MongoDB Setup
+In this version, we will interact with the MongoDB database using the native MongoDB driver.
+
+* `npm install mongodb --save`
+* `mkdir services`
+* `touch services/database.js`
+* Add content to `database.js`
+
+### Set up dotenv
+* `npm install dotenv`
+* `touch .env`
+
+### Set up database in Mongo Atlas
+* Create Project
+* Create Cluster
+* Set username/password
+* Connect to database ('Connect Your Application')
+* Copy/paste connection string into `.env` file
+
+### Start connection to Mongo in app.js
+* `require('dotenv').config();` AT TOP of file
+* Add async function to start MongoDB connection to `app.js`
+* Run with `npm run dev` - should see **`Connected to MongoDB!`**
