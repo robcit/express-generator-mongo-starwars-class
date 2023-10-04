@@ -4,7 +4,15 @@ const dbService = require('services/database');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Star Wars Quotes' });
+  dbService.db.collection('quotes').find().toArray()
+  .then((results) => {
+    console.log(results);
+    res.render('index', { title: 'Star Wars Quotes', quotes: results });
+  })
+  .catch((error) => {
+    console.error(error);
+    res.sendStatus(404);
+  })
 });
 
 /*

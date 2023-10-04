@@ -65,3 +65,12 @@ In this version, we will interact with the MongoDB database using the native Mon
 * In the **post** route, add a call to insert the body of the request as a record in MongoDB:
 `const newQuote = await dbService.db.collection('quotes').insertOne(req.body);`
 * Submit a form to see the record added to MongoDB
+
+## v.4 Read from the Database with the Native MongoDB Driver
+
+### Create a simple example that reades to the database
+* In `routes/index.js`, require the db service: `const dbService = require('services/database');`
+* In the **GET** route, add a call to query all documents in the `quotes` collection and use the `toArray()` method to pass that information to the view
+* Update `views/index.js` and write the EJS that will loop through the `quotes` array and write each quote into a `<UL>` element
+* `npm run dev` - should see all the quotes from the database on the screen
+

@@ -15,7 +15,9 @@
   </div>
   <div id="quotes">
     <ul>
-      <li>Quote</li>
+      <% quotes.forEach( (quote) => { %>
+        <li><%= quote.character %>: <%= quote.quote %></li>
+      <% } ) %>
     </ul>
   </div>
   </body>
