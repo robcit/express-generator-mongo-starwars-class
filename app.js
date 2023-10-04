@@ -7,21 +7,29 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const mongo = require('services/database');
+//const mongo = require('./services/database');
+const mongoose = require('mongoose');
 
 // Routers
 const indexRouter = require('./routes/index');
 
 // Database initialization with Mongo native driver
-async function startDB() {
-  await mongo.init();
-}
-startDB();
+// async function startDB() {
+//   await mongo.init();
+// }
+// startDB();
+
+// Connect to Mongo via mongoose
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
+  useNewUrlParser: true
+})
+.then( () => { console.log('MongoDB connected via mongoose!') } )
+.catch( (error) => { console.error(error) } )
 
 // App initialization
 const app = express();
 
-// Fiew engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

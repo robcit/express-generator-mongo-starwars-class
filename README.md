@@ -74,3 +74,71 @@ In this version, we will interact with the MongoDB database using the native Mon
 * Update `views/index.js` and write the EJS that will loop through the `quotes` array and write each quote into a `<UL>` element
 * `npm run dev` - should see all the quotes from the database on the screen
 
+## v.5 Add Mongoose
+Revise the application to connect to MongoDB using `mongoose` instead of the native driver.
+
+* `npm install mongoose`
+* In `app.js` add require: `const mongoose = require('mongoose');`
+* In `app.js` comment out previous connection code; add code to connect with mongoose
+
+```
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+})
+.then( () => console.log('MongoDB connected.') )
+.catch( err => console.log(err) );
+```
+
+* Update the connection string in the `.env` file to explicitly name the database you're using
+    * Add the database name just before the `?retryWrites=true` statement
+    * *Example:* `mongodb.net/star-wars-quote?retryWrites=true`
+
+* In `app.js`, remove require for `services/database`
+* `rm -rf services/database.js`
+
+### Create a schema (Model) for Mongoose
+* `mkdir models`
+* `code models/Quote.js -r`
+* Add content to `Quote.js`
+
+#### Update the GET route in `routes/index.js`
+* Create an empty filter
+* Use that filter to find Quotes in the database
+* `const quotes = await Quote.find(filter);`
+
+#### Update the POST route in `routes/index.js`
+* Add imports
+```
+const mongoose = require('mongoose');
+require('models/Quote');
+const Quote = mongoose.model('quotes');
+```
+* Comment out code in POST route
+* Add new Quote method in POST route
+```
+  const myQuote = new Quote({
+    character: req.body.character,
+    quote: req.body.quote
+  });
+  myQuote.save()
+    .then( () => console.log('Document saved.') )
+    .then( () => { res.render('index', { title: 'Form posted' }); })
+    .catch( err => console.log(err) );
+```
+* `npm run dev`
+* Submit the form
+
+This works but generates an error because we are not passing quotes to the view. Refactor it so that we call the root GET route after a form is posted.
+
+```
+  const myQuote = new Quote({
+    character: req.body.character,
+    quote: req.body.quote
+  });
+  myQuote.save()
+    .then( () => console.log('Document saved.') )
+    // .then( () => { res.render('index', { title: 'Form posted' }); })
+    .then( () => { res.redirect('/') })
+    .catch( err => console.log(err) );
+```
