@@ -57,3 +57,11 @@ In this version, we will interact with the MongoDB database using the native Mon
 * `require('dotenv').config();` AT TOP of file
 * Add async function to start MongoDB connection to `app.js`
 * Run with `npm run dev` - should see **`Connected to MongoDB!`**
+
+## v.3 Write to the Database with the Native MongoDB Driver
+
+### Create a simple example that writes to the database
+* In `routes/index.js`, require the db service: `const dbService = require('services/database');`
+* In the **post** route, add a call to insert the body of the request as a record in MongoDB:
+`const newQuote = await dbService.db.collection('quotes').insertOne(req.body);`
+* Submit a form to see the record added to MongoDB
