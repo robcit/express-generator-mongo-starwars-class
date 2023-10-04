@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div>
+    <form method="post" action="/" name="quote_form">
+      Character: <input type="text" name="character" id="character" /><br />
+      Quote: <input type="text" name="quote" id="quote" /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <div id="quotes">
+    <ul>
+      <li>Quote</li>
+    </ul>
+  </div>
+  </body>
+</html>
