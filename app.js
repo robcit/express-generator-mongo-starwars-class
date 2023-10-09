@@ -9,6 +9,8 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 //const mongo = require('./services/database');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('services/swagger_output.json');
 
 // Routers
 const indexRouter = require('./routes/index');
@@ -41,6 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use('/', indexRouter);
 app.use('/api/v1', apiRouter);

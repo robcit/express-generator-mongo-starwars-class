@@ -143,4 +143,23 @@ This works but generates an error because we are not passing quotes to the view.
     .catch( err => console.log(err) );
 ```
 
-## v.6 - Add an open API to the application
+## v.6 Add Open API
+Add an Open API to the application.
+
+* `mkdir routes/api`
+* `mkdir routes/api/v1`
+* `touch routes/api/v1/index.js`
+* Add new router and path to `app.js`
+* Add code to `routes/api/v1/index.js` to add endpoints to the API
+* Discuss using a regular expressions in a filter (for case insensitivity)
+
+## v.7 Documenting an API
+* `npm install swagger-autogen swagger-ui-express`
+* `touch services/swagger.js`
+* Add code to `services/swagger.js`
+* Add script to `package.json`
+* Run `npm run swagger-autogen`
+* Add require statements and middleware to `app.js`
+* `npm run dev`
+* View the auto-created documentation at [https://localhost:3000/api/v1/docs](https://localhost:3000/api/v1/docs)
+    * **WARNING** re-running the auto-generator will overwrite any custom instructions you have in there.
